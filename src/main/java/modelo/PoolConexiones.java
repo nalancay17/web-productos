@@ -2,15 +2,12 @@ package modelo;
 
 import java.sql.Connection;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 public class PoolConexiones {
 
 	private static PoolConexiones instancia;
-
-	@Resource(name="jdbc/crud_productos")
-	private DataSource poolConexiones;
+	private DataSource pool;
 
 	private PoolConexiones() {
 
@@ -24,9 +21,14 @@ public class PoolConexiones {
 
 	public Connection getConexion() throws Exception {
 		try {
-			return poolConexiones.getConnection();
-		} catch(Exception e) {
+			return pool.getConnection();
+		} catch (Exception e) {
 			throw e;
 		}
 	}
+
+	public void setPool(DataSource pool) {
+		this.pool = pool;
+	}
+
 }
