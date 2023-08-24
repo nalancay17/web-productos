@@ -23,6 +23,10 @@
 table {
 	float: left;
 }
+
+#contenedorBoton {
+	margin-left: 700px;
+}
 </style>
 </head>
 
@@ -48,6 +52,10 @@ table {
 
 	</table>
 
+	<div id="contenedorBoton">
+		<input type="button" value="Insertar nuevo producto"
+			onclick="window.location.href='RegistroProducto.jsp'" />
+	</div>
 
 </body>
 </html>
