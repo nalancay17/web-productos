@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class ProductoDAOImpl implements ProductoDAO {
 
 	private PoolConexiones pool;
-	private static final String INSERT = "INSERT INTO producto (codigo, nombre, precio, fecha, pais_origen) VALUES (?,?,?,?,?";
+	private static final String INSERT = "INSERT INTO producto (codigo, nombre, precio, fecha, pais_origen) VALUES (?,?,?,?,?)";
 	private static final String SELECT = "SELECT * FROM producto";
 
 	public ProductoDAOImpl(PoolConexiones pool) {
