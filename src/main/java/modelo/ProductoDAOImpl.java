@@ -14,6 +14,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 	private static final String INSERT = "INSERT INTO producto (codigo, nombre, precio, fecha, pais_origen) VALUES (?,?,?,?,?)";
 	private static final String SELECT = "SELECT * FROM producto";
 	private static final String SELECT_PRODUCTO = "SELECT * FROM producto WHERE codigo=?";
+	private static final String UPDATE = "UPDATE producto SET nombre=?, precio=?, fecha=?, pais_origen=? WHERE codigo=?";
 
 	public ProductoDAOImpl(PoolConexiones pool) {
 		this.pool = pool;
@@ -69,6 +70,23 @@ public class ProductoDAOImpl implements ProductoDAO {
 			st.close();
 			rs.close();
 			return p;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public void modificar(Producto p) throws Exception {
+		try {
+			PreparedStatement st = pool.getConexion().prepareStatement(UPDATE);
+			st.setString(1, p.getNombre());
+			st.setDouble(2, p.getPrecio());
+			st.setDate(3, (Date) p.getFecha());
+			st.setString(4, p.getPaisOrigen());
+			st.setString(5, p.getCodigo());
+
+			st.executeUpdate();
+			st.close();
 		} catch (Exception e) {
 			throw e;
 		}

@@ -10,4 +10,6 @@ public interface ProductoDAO {
 
 	public Producto obtenerProducto(String codigo) throws Exception;
 
+	public void modificar(Producto p) throws Exception;
+
 }
