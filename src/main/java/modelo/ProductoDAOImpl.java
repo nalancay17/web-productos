@@ -4,6 +4,7 @@ import java.util.List;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 	private PoolConexiones pool;
 	private static final String INSERT = "INSERT INTO producto (codigo, nombre, precio, fecha, pais_origen) VALUES (?,?,?,?,?)";
 	private static final String SELECT = "SELECT * FROM producto";
+	private static final String SELECT_PRODUCTO = "SELECT * FROM producto WHERE codigo=?";
 
 	public ProductoDAOImpl(PoolConexiones pool) {
 		this.pool = pool;
@@ -43,13 +45,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			ResultSet rs = st.executeQuery(SELECT);
 
 			while (rs.next()) {
-				Producto p = new Producto();
-				p.setCodigo(rs.getString("codigo"));
-				p.setNombre(rs.getString("nombre"));
-				p.setPrecio(rs.getDouble("precio"));
-				p.setFecha(rs.getDate("fecha"));
-				p.setPaisOrigen(rs.getString("pais_origen"));
-
+				Producto p = obtenerProductoDelResultSet(rs);
 				productos.add(p);
 			}
 			st.close();
@@ -58,6 +54,34 @@ public class ProductoDAOImpl implements ProductoDAO {
 			throw e;
 		}
 		return productos;
+	}
+
+	@Override
+	public Producto obtenerProducto(String codigo) throws Exception {
+		try {
+			PreparedStatement st = pool.getConexion().prepareStatement(SELECT_PRODUCTO);
+			st.setString(1, codigo);
+
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			Producto p = obtenerProductoDelResultSet(rs);
+
+			st.close();
+			rs.close();
+			return p;
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	private Producto obtenerProductoDelResultSet(ResultSet rs) throws SQLException {
+		Producto p = new Producto();
+		p.setCodigo(rs.getString("codigo"));
+		p.setNombre(rs.getString("nombre"));
+		p.setPrecio(rs.getDouble("precio"));
+		p.setFecha(rs.getDate("fecha"));
+		p.setPaisOrigen(rs.getString("pais_origen"));
+		return p;
 	}
 
 }

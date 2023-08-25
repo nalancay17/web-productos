@@ -8,4 +8,6 @@ public interface ProductoDAO {
 
 	public List<Producto> listar() throws Exception;
 
+	public Producto obtenerProducto(String codigo) throws Exception;
+
 }
