@@ -31,6 +31,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			st.setString(5, p.getPaisOrigen());
 
 			st.executeUpdate();
+			st.getConnection().close();
 			st.close();
 		} catch (Exception e) {
 			throw e;
@@ -49,6 +50,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 				Producto p = obtenerProductoDelResultSet(rs);
 				productos.add(p);
 			}
+			st.getConnection().close();
 			st.close();
 			rs.close();
 		} catch (Exception e) {
@@ -67,6 +69,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			rs.next();
 			Producto p = obtenerProductoDelResultSet(rs);
 
+			st.getConnection().close();
 			st.close();
 			rs.close();
 			return p;
@@ -86,6 +89,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 			st.setString(5, p.getCodigo());
 
 			st.executeUpdate();
+			st.getConnection().close();
 			st.close();
 		} catch (Exception e) {
 			throw e;
