@@ -15,6 +15,7 @@ public class ProductoDAOImpl implements ProductoDAO {
 	private static final String SELECT = "SELECT * FROM producto";
 	private static final String SELECT_PRODUCTO = "SELECT * FROM producto WHERE codigo=?";
 	private static final String UPDATE = "UPDATE producto SET nombre=?, precio=?, fecha=?, pais_origen=? WHERE codigo=?";
+	private static final String DELETE = "DELETE FROM producto WHERE codigo=?";
 
 	public ProductoDAOImpl(PoolConexiones pool) {
 		this.pool = pool;
@@ -88,6 +89,19 @@ public class ProductoDAOImpl implements ProductoDAO {
 			st.setString(4, p.getPaisOrigen());
 			st.setString(5, p.getCodigo());
 
+			st.executeUpdate();
+			st.getConnection().close();
+			st.close();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public void eliminar(String codigo) throws Exception {
+		try {
+			PreparedStatement st = pool.getConexion().prepareStatement(DELETE);
+			st.setString(1, codigo);
 			st.executeUpdate();
 			st.getConnection().close();
 			st.close();

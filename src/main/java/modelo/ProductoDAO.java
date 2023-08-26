@@ -12,4 +12,6 @@ public interface ProductoDAO {
 
 	public void modificar(Producto p) throws Exception;
 
+	public void eliminar(String codigo) throws Exception;
+
 }
