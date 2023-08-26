@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Lista de productos</title>
 <style type="text/css">
 .cabecera {
 	font-size: 1.2em;
@@ -38,15 +38,21 @@ table {
 			<td class="cabecera">Precio</td>
 			<td class="cabecera">Fecha</td>
 			<td class="cabecera">País de origen</td>
+			<td class="cabecera">Modificar</td>
 		</tr>
 
 		<c:forEach var="p" items="${productos}">
+			<c:url var="link_modificar" value="/ModificarProductoServlet">
+				<c:param name="codigo" value="${p.codigo}"></c:param>
+			</c:url>
+
 			<tr>
 				<td class="fila">${p.codigo}</td>
 				<td class="fila">${p.nombre}</td>
 				<td class="fila">${p.precio}</td>
 				<td class="fila">${p.fecha}</td>
 				<td class="fila">${p.paisOrigen}</td>
+				<td class="fila"><a href="${link_modificar}">Actualizar</a></td>
 			</tr>
 		</c:forEach>
 
