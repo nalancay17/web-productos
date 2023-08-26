@@ -9,6 +9,7 @@
 <title>Lista de productos</title>
 <style type="text/css">
 .cabecera {
+	text-align: center;
 	font-size: 1.2em;
 	font-weight: bold;
 	color: #FFFFFF;
@@ -38,11 +39,15 @@ table {
 			<td class="cabecera">Precio</td>
 			<td class="cabecera">Fecha</td>
 			<td class="cabecera">País de origen</td>
-			<td class="cabecera">Modificar</td>
+			<td class="cabecera">Acción</td>
 		</tr>
 
 		<c:forEach var="p" items="${productos}">
 			<c:url var="link_modificar" value="/ModificarProductoServlet">
+				<c:param name="codigo" value="${p.codigo}"></c:param>
+			</c:url>
+
+			<c:url var="link_eliminar" value="/EliminarProductoServlet">
 				<c:param name="codigo" value="${p.codigo}"></c:param>
 			</c:url>
 
@@ -52,7 +57,8 @@ table {
 				<td class="fila">${p.precio}</td>
 				<td class="fila">${p.fecha}</td>
 				<td class="fila">${p.paisOrigen}</td>
-				<td class="fila"><a href="${link_modificar}">Actualizar</a></td>
+				<td class="fila"><a href="${link_modificar}">Actualizar</a>&nbsp;&nbsp;&nbsp;<a
+					href="${link_eliminar}">Eliminar</a></td>
 			</tr>
 		</c:forEach>
 
